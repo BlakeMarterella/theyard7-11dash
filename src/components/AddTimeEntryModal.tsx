@@ -46,7 +46,7 @@ export default function AddTimeEntryModal({ onClose }: AddTimeEntryModalProps) {
       date: Timestamp.now(),
       time: 0
     });
-    
+
     setMinutes('');
     setSeconds('');
     setMilliseconds('');
@@ -76,7 +76,7 @@ export default function AddTimeEntryModal({ onClose }: AddTimeEntryModalProps) {
                 name="name"
                 value={newEntry.name}
                 onChange={handleChange}
-                className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                className="mt-1 block w-full p-2 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                 required
               />
             </div>
@@ -88,36 +88,38 @@ export default function AddTimeEntryModal({ onClose }: AddTimeEntryModalProps) {
                 name="date"
                 value={newEntry.date.toString()}
                 onChange={handleChange}
-                className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                className="mt-1 block w-full p-2 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                 required
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700">Time (Minutes:Seconds:Milliseconds)</label>
-              <div className="flex space-x-2">
+              <label className="block text-sm font-medium text-gray-700">Time</label>
+              <div className="flex space-x-2 align-middle justify-center">
                 <input
                   type="number"
                   placeholder="Minutes"
                   value={minutes}
                   onChange={(e) => setMinutes(e.target.value)}
-                  className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                  className="mt-1 block w-full p-2 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                   required
                 />
+                <span className="flex justify-center items-center">:</span>
                 <input
                   type="number"
                   placeholder="Seconds"
                   value={seconds}
                   onChange={(e) => setSeconds(e.target.value)}
-                  className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                  className="mt-1 block w-full p-2 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                   required
                 />
+                <span className="flex justify-center items-center">:</span>
                 <input
                   type="number"
                   placeholder="Milliseconds"
                   value={milliseconds}
                   onChange={(e) => setMilliseconds(e.target.value)}
-                  className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                  className="mt-1 block w-full p-2 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                   required
                 />
               </div>
