@@ -144,7 +144,6 @@ To complete this step, there are numerous sites that I referenced to help me und
 - [react-firestore-crud-app-ts (awran5)](https://github.com/awran5/react-firestore-crud-app-ts/tree/main)
 - [cra-template-typescript-firebase(pettiboy)](https://github.com/pettiboy/cra-template-typescript-firebase/tree/main)
 
-
 ### Refining Add Time Entry Modal
 
 ![Modal Closed](./documentation/modals/modal-closed.png)
@@ -152,6 +151,42 @@ To complete this step, there are numerous sites that I referenced to help me und
 
 - [Creatying a simple Mopdal Component (Sanjana Kumari)](https://dev.to/theedgebreaker/creating-a-simple-modal-component-in-react-with-typescript-for-beginners-42ac)
 - [reusable-modals-react-ts (ijaviertovar)](https://github.com/ljaviertovar/reusable-modals-react-ts)
+
+### Updating the table
+
+#### Adding delete button
+
+![Delete Button](./documentation/delete-button.png)
+
+Added to the service file:
+
+```typescript
+export const deleteTimeEntry = async (id: string): Promise<void> => {
+    try {
+      const entryDoc = doc(firestore, TIME_ENTRY_COLLECTION, id);
+      await deleteDoc(entryDoc);
+    } catch (error) {
+      console.error('Error deleting time entry: ', error);
+    }
+  };  
+```
+
+Added to the table:
+
+```typescript
+<td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+<button
+    onClick={() => handleDelete(entry.id ? entry.id : "")}
+    className="bg-red-500 text-white py-1 px-3 rounded-md"
+>
+    Delete
+</button>
+</td>
+```
+
+#### Migrating to a table component
+
+Also updated logic so that it will listen to the state of the modal for opening and closing
 
 ## What I learned
 

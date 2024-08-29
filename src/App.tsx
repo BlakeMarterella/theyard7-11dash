@@ -2,18 +2,21 @@ import { getAllTimeEntries, deleteTimeEntry } from "./services/time-entries.serv
 import ITimeEntry from "./types/time-entry.types";
 import { useState, useEffect } from "react";
 import AddTimeEntryModal from "./components/AddTimeEntryModal";
+import LeaderboardTable from "./components/LeaderboardTable";
 
 function App() {
   const [entries, setEntries] = useState<ITimeEntry[]>([]);
+  const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
   // Fetch entries from Firebase on component mount
   useEffect(() => {
     const fetchEntries = async () => {
       const fetchedEntries = await getAllTimeEntries();
-      setEntries(fetchedEntries);
+      setEntries(sortEntries(fetchedEntries, sortOrder));
     };
     fetchEntries();
-  }, []);
+  }, [sortOrder, isModalVisible]);
 
   const handleDelete = async (id: string) => {
     await deleteTimeEntry(id);
@@ -21,16 +24,18 @@ function App() {
     setEntries(updatedEntries);
   };
 
-  const [isModalVisible, setIsModalVisible] = useState(false);
-
-  const handleShowModal = () => {
-    setIsModalVisible(true);
+  const handleSort = () => {
+    const newSortOrder = sortOrder === 'asc' ? 'desc' : 'asc';
+    setSortOrder(newSortOrder);
   };
 
-  const handleCloseModal = () => {
-    setIsModalVisible(false);
+  const sortEntries = (entries: ITimeEntry[], order: 'asc' | 'desc'): ITimeEntry[] => {
+    return entries.sort((a, b) => {
+      const timeA = new Date(a.time).getTime();
+      const timeB = new Date(b.time).getTime();
+      return order === 'asc' ? timeA - timeB : timeB - timeA;
+    });
   };
-
 
   return (<>
         <div className="container mx-auto p-4">
@@ -38,48 +43,19 @@ function App() {
       
       <button
         className="bg-green-600 hover:bg-green-500 transition duration-150 text-white px-5 py-2 rounded-md"
-        onClick={handleShowModal}>
+        onClick={() => setIsModalVisible(true)}>
         Add Time
       </button>
 
-      {isModalVisible && <AddTimeEntryModal onClose={handleCloseModal} />}
+      {isModalVisible && <AddTimeEntryModal onClose={() => setIsModalVisible(false)} />}
 
 
-      {/* Table to display entries */}
-      <table className="min-w-full divide-y divide-gray-200">
-        <thead className="bg-gray-50">
-          <tr>
-            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              Name
-            </th>
-            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              Time
-            </th>
-            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              Date
-            </th>
-            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-            </th>
-          </tr>
-        </thead>
-        <tbody className="bg-white divide-y divide-gray-200">
-          {entries.map((entry) => (
-            <tr key={entry.id}>
-              <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{entry.name}</td>
-              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{entry.date}</td>
-              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{entry.time}</td>
-              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                <button
-                  onClick={() => handleDelete(entry.id ? entry.id : "")}
-                  className="bg-red-500 text-white py-1 px-3 rounded-md"
-                >
-                  Delete
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <LeaderboardTable 
+        entries={entries}
+        onDelete={handleDelete}
+        onSort={handleSort}
+        sortOrder={sortOrder}
+      />
     </div>
   </>);
 }
