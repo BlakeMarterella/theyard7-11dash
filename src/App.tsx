@@ -44,12 +44,12 @@ function App() {
 
   return (<>
         <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">Time Entries</h1>
+      <h1 className="text-2xl font-bold mb-4">The Yard 7-11 Dash</h1>
       
       {/* Form for creating a new entry */}
       <form onSubmit={handleSubmit} className="mb-4 space-y-4">
         <div>
-          <label className="block text-sm font-medium text-gray-700">Title</label>
+          <label className="block text-sm font-medium text-gray-700">Name</label>
           <input
             type="text"
             name="name"
@@ -61,7 +61,7 @@ function App() {
         </div>
         
         <div>
-          <label className="block text-sm font-medium text-gray-700">Description</label>
+          <label className="block text-sm font-medium text-gray-700">Time</label>
           <input
             type="text"
             name="time"
@@ -73,7 +73,7 @@ function App() {
         </div>
         
         <div>
-          <label className="block text-sm font-medium text-gray-700">Start Time</label>
+          <label className="block text-sm font-medium text-gray-700">Date</label>
           <input
             type="text"
             name="date"
@@ -94,16 +94,13 @@ function App() {
         <thead className="bg-gray-50">
           <tr>
             <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              Title
+              Name
             </th>
             <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              Description
+              Time
             </th>
             <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              Start Time
-            </th>
-            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              End Time
+              Date
             </th>
           </tr>
         </thead>
