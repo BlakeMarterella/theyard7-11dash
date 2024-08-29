@@ -1,10 +1,9 @@
-import { Timestamp } from "firebase/firestore";
+// import { Timestamp } from "firebase/firestore";
 
 export default interface ITimeEntry {
-    key?: string | null,
-    date: Timestamp,
-    runner: string,
-    time: Timestamp,
-    published?: boolean,
-  }
+    id?: string | null,
+    name: string,
+    date: string,
+    time: string,
+}
   
