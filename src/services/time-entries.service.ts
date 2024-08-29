@@ -1,7 +1,5 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-// import db from "../firebase";
 import { firestore, TIME_ENTRY_COLLECTION } from "../firebase";
-import { collection, getDocs, addDoc, doc, deleteDoc, getDoc } from "firebase/firestore"; // onSnapshot to listen to changes to DB
+import { collection, getDocs, addDoc, doc, deleteDoc } from "firebase/firestore"; // onSnapshot to listen to changes to DB
 import ITimeEntry from "../types/time-entry.types";
 
 const timeEntriesCollection = collection(firestore, TIME_ENTRY_COLLECTION);
