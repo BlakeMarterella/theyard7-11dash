@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { addTimeEntry } from "../services/time-entries.service";
 import ITimeEntry from "../types/time-entry.types";
+import { Timestamp } from "firebase/firestore";
+import { convertToMilliseconds } from "../helpers/TimeDuration";
 
 interface AddTimeEntryModalProps {
   onClose: () => void;
@@ -9,9 +11,13 @@ interface AddTimeEntryModalProps {
 export default function AddTimeEntryModal({ onClose }: AddTimeEntryModalProps) {
   const [newEntry, setNewEntry] = useState<Omit<ITimeEntry, 'id'>>({
     name: '',
-    date: '',
-    time: ''
+    date: Timestamp.now(),
+    time: 0
   });
+
+  const [minutes, setMinutes] = useState<string>('');
+  const [seconds, setSeconds] = useState<string>('');
+  const [milliseconds, setMilliseconds] = useState<string>('');
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = event.target;
@@ -23,12 +29,27 @@ export default function AddTimeEntryModal({ onClose }: AddTimeEntryModalProps) {
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    await addTimeEntry(newEntry);
+
+    const timeInMilliseconds = convertToMilliseconds(
+      parseInt(minutes, 10) || 0,
+      parseInt(seconds, 10) || 0,
+      parseInt(milliseconds, 10) || 0
+    );
+
+    await addTimeEntry({
+      ...newEntry,
+      time: timeInMilliseconds
+    });
+
     setNewEntry({
       name: '',
-      date: '',
-      time: ''
+      date: Timestamp.now(),
+      time: 0
     });
+    
+    setMinutes('');
+    setSeconds('');
+    setMilliseconds('');
 
     onClose();
   };
@@ -63,9 +84,9 @@ export default function AddTimeEntryModal({ onClose }: AddTimeEntryModalProps) {
             <div>
               <label className="block text-sm font-medium text-gray-700">Date</label>
               <input
-                type="text"
+                type="date"
                 name="date"
-                value={newEntry.date}
+                value={newEntry.date.toString()}
                 onChange={handleChange}
                 className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                 required
@@ -73,15 +94,33 @@ export default function AddTimeEntryModal({ onClose }: AddTimeEntryModalProps) {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700">Time</label>
-              <input
-                type="text"
-                name="time"
-                value={newEntry.time}
-                onChange={handleChange}
-                className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                required
-              />
+              <label className="block text-sm font-medium text-gray-700">Time (Minutes:Seconds:Milliseconds)</label>
+              <div className="flex space-x-2">
+                <input
+                  type="number"
+                  placeholder="Minutes"
+                  value={minutes}
+                  onChange={(e) => setMinutes(e.target.value)}
+                  className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                  required
+                />
+                <input
+                  type="number"
+                  placeholder="Seconds"
+                  value={seconds}
+                  onChange={(e) => setSeconds(e.target.value)}
+                  className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                  required
+                />
+                <input
+                  type="number"
+                  placeholder="Milliseconds"
+                  value={milliseconds}
+                  onChange={(e) => setMilliseconds(e.target.value)}
+                  className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                  required
+                />
+              </div>
             </div>
 
             <button type="submit" className="bg-blue-500 text-white py-2 px-4 rounded-md">

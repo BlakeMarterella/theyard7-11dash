@@ -1,5 +1,6 @@
 import React from 'react';
 import ITimeEntry from '../types/time-entry.types';
+import { convertMillisecondsToTimeString } from '../helpers/TimeDuration';
 
 interface LeaderboardTableProps {
   entries: ITimeEntry[];
@@ -35,8 +36,8 @@ const LeaderboardTable: React.FC<LeaderboardTableProps> = ({ entries, onDelete, 
         {entries.map((entry) => (
           <tr key={entry.id}>
             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{entry.name}</td>
-            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{entry.date}</td>
-            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{entry.time}</td>
+            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{entry.date.toString()}</td>
+            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{convertMillisecondsToTimeString(entry.time)}</td>
             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
               <button
                 onClick={() => onDelete(entry.id ? entry.id : "")}
