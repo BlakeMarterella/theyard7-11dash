@@ -9,7 +9,6 @@ function App() {
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
   const [isModalVisible, setIsModalVisible] = useState(false);
 
-  // Fetch entries from Firebase on component mount
   useEffect(() => {
     const fetchEntries = async () => {
       const fetchedEntries = await getAllTimeEntries();
