@@ -147,6 +147,9 @@ To complete this step, there are numerous sites that I referenced to help me und
 
 ### Refining Add Time Entry Modal
 
+![Modal Closed](./documentation/modals/modal-closed.png)
+~[Modal Open](./documentation/modals/modal-open.png)
+
 - [Creatying a simple Mopdal Component (Sanjana Kumari)](https://dev.to/theedgebreaker/creating-a-simple-modal-component-in-react-with-typescript-for-beginners-42ac)
 - [reusable-modals-react-ts (ijaviertovar)](https://github.com/ljaviertovar/reusable-modals-react-ts)
 

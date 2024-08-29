@@ -1,4 +1,4 @@
-import { getAllTimeEntries } from "./services/time-entries.service";
+import { getAllTimeEntries, deleteTimeEntry } from "./services/time-entries.service";
 import ITimeEntry from "./types/time-entry.types";
 import { useState, useEffect } from "react";
 import AddTimeEntryModal from "./components/AddTimeEntryModal";
@@ -14,6 +14,12 @@ function App() {
     };
     fetchEntries();
   }, []);
+
+  const handleDelete = async (id: string) => {
+    await deleteTimeEntry(id);
+    const updatedEntries = entries.filter(entry => entry.id !== id);
+    setEntries(updatedEntries);
+  };
 
   const [isModalVisible, setIsModalVisible] = useState(false);
 
@@ -52,6 +58,8 @@ function App() {
             <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
               Date
             </th>
+            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+            </th>
           </tr>
         </thead>
         <tbody className="bg-white divide-y divide-gray-200">
@@ -60,6 +68,14 @@ function App() {
               <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{entry.name}</td>
               <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{entry.date}</td>
               <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{entry.time}</td>
+              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                <button
+                  onClick={() => handleDelete(entry.id ? entry.id : "")}
+                  className="bg-red-500 text-white py-1 px-3 rounded-md"
+                >
+                  Delete
+                </button>
+              </td>
             </tr>
           ))}
         </tbody>
