@@ -145,6 +145,11 @@ To complete this step, there are numerous sites that I referenced to help me und
 - [cra-template-typescript-firebase(pettiboy)](https://github.com/pettiboy/cra-template-typescript-firebase/tree/main)
 
 
+### Refining Add Time Entry Modal
+
+- [Creatying a simple Mopdal Component (Sanjana Kumari)](https://dev.to/theedgebreaker/creating-a-simple-modal-component-in-react-with-typescript-for-beginners-42ac)
+- [reusable-modals-react-ts (ijaviertovar)](https://github.com/ljaviertovar/reusable-modals-react-ts)
+
 ## What I learned
 
 ### Naming Conventions and File Structure
