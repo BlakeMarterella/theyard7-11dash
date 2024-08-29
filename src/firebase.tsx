@@ -1,4 +1,5 @@
 import firebase from "firebase/app";
+import { getFirestore } from "firebase/firestore";
 import "firebase/database";
 
 
@@ -15,6 +16,7 @@ const config = {
   measurementId: "G-7R54RNTLQ7"
 };
 
-firebase.initializeApp(config);
+const app = firebase.initializeApp(config);
+const firestore = getFirestore(app);
 
-export default firebase.database();
+export default firestore;
