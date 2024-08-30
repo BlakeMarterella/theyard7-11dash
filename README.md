@@ -2,7 +2,41 @@
 
 Are you brave enough to complete the 7-11 Dash? 🏃‍♂️🏃‍♀️
 
-## Development Jouney
+## Development - Getting Started
+
+### Prerequisites
+
+| Software | Version |
+| --- | --- |
+| Node.js | 20.15.1 |
+| npm | 10.8.2 |
+| [firebase tools](https://www.npmjs.com/package/firebase-tools) | 13.16.0 | 
+
+### Installing dependencies
+
+To install the dependencies for the project, run the following command in the root of the project:
+
+```bash
+npm install
+```
+
+### Updating environment file
+
+- Make a copy of the `example.env` file and rename it to `.env`.
+- In your web browser, go to `theyard7-11dash` project in firebase.
+- Click on the gear icon to go to project settings.
+- Scroll down to the `Your apps` section and click on the `</>` icon.
+- You will see fields from the configuration object to copy to your `.env` file.
+
+### Starting development server
+
+To start the development server, run the following command in the root of the project:
+
+```bash
+npm run dev
+```
+
+## MVP Development Jouney
 
 ### Initial Project Set-Up
 
@@ -90,7 +124,7 @@ useEffect(() => {
 }, []);
 ```
 
-##### Adding Time Entries
+##### Adding time entries
 
 When adding a new time entry, I need to create a form that will take in the name, date, and time of the entry. For the proof of concept, there will be no input validation and for further simplicity, all values are stored as a string. The default value for the state of the form is an `ITimeEntry` object with empty strings for the name, date, and time.
 
@@ -128,7 +162,7 @@ const handleSubmit = async (event: React.FormEvent) => {
 };
 ```
 
-#### The Result
+#### The result
 
 The result is a simple web application that displays all time entries in a table and allows the user to add a new time entry to the database. The table is not styled and the form is not validated, but the proof of concept is complete. The next steps will be to refactor the code to make it more maintainable and to add the ability to update and delete time entries.
 
@@ -146,15 +180,19 @@ To complete this step, there are numerous sites that I referenced to help me und
 
 ### Refining Add Time Entry Modal
 
+The next step was to declutter the landing view. To do that, I would like to make a pop-up dialog box where users can enter details for a new run. For the initial proof of concept, all of this code was added to the `App.tsx` file.
+
 ![Modal Closed](./documentation/modals/modal-closed.png)
-~[Modal Open](./documentation/modals/modal-open.png)
+![Modal Open](./documentation/modals/modal-open.png)
+
+These were very helpful resources for creating the modal:
 
 - [Creatying a simple Mopdal Component (Sanjana Kumari)](https://dev.to/theedgebreaker/creating-a-simple-modal-component-in-react-with-typescript-for-beginners-42ac)
 - [reusable-modals-react-ts (ijaviertovar)](https://github.com/ljaviertovar/reusable-modals-react-ts)
 
-### Updating the table
+### Adding delete functionality
 
-#### Adding delete button
+The way the table is set-up, each row contains a unique entity id which is related to the key in the Firestore database. This made creating a simple delete function for each row very easy.
 
 ![Delete Button](./documentation/delete-button.png)
 
@@ -184,9 +222,15 @@ Added to the table:
 </td>
 ```
 
-#### Migrating to a table component
+### Decoupling components
 
-Also updated logic so that it will listen to the state of the modal for opening and closing
+One of the hardest parts of the project up to this point was digging through all of the code in the `App.tsx` file. I wanted to decouple the components so that the code was more readable and maintainable. I created a new directory in the `src` directory called `components`. Here, I created a file for the pop-up modal that allows users to create a new time entry (`AddTimeEntryModal.tsx`) and a file for the leaderboard table (`LeaderboardTable.tsx`).
+
+The structure looks similar to this:
+
+![Component Vizualiization](./documentation/decouple-components.png)
+
+The `App.tsx` file is still in charge of a majority of state management which helps to keep our app running quickly. For example, if a change is made to the modal state then it will trigger a refresh of the table to check for new entries. This is not the most efficient way to handle state management but it is a good starting point for the project.
 
 ## What I learned
 
