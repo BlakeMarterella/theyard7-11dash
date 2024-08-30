@@ -232,6 +232,30 @@ The structure looks similar to this:
 
 The `App.tsx` file is still in charge of a majority of state management which helps to keep our app running quickly. For example, if a change is made to the modal state then it will trigger a refresh of the table to check for new entries. This is not the most efficient way to handle state management but it is a good starting point for the project.
 
+The end result is a single-page web app that looks identical to before but under the hood it is much more organized and maintainable.
+
+### Refining the UI
+
+To improve the look of the user-interface, I am using [TailwindCSS](https://tailwindcss.com/) to style the components. The first thing I did was [define a basic color pallete](https://tailwindcss.com/docs/customizing-colors) in `tailwind.config.js`. I would like to use the 7-eleven color pallete (given it is what inspired this whole idea) so this is what my most primitive color pallete looks like:
+
+```json
+  theme: {
+    extend: {
+      colors: {
+        '711-red': '#ed2525',
+        '711-orange': '#f4811f',
+        '711-green': '#008062'
+      }
+    },
+  },
+```
+
+For some added flair, I am using the [tailwindcss animated](https://www.tailwindcss-animated.com/) plugin to add some animations to various components.
+
+#### Styling components
+
+In addition to updating the already existing components, I created new components to help me style the applicaiton easier and enforce uniformity.
+
 ## What I learned
 
 ### Naming Conventions and File Structure

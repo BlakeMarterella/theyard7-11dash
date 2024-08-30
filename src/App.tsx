@@ -3,6 +3,7 @@ import ITimeEntry from "./types/time-entry.types";
 import { useState, useEffect } from "react";
 import AddTimeEntryModal from "./components/AddTimeEntryModal";
 import LeaderboardTable from "./components/LeaderboardTable";
+import Header from "./components/Header";
 
 function App() {
   const [entries, setEntries] = useState<ITimeEntry[]>([]);
@@ -37,11 +38,11 @@ function App() {
   };
 
   return (<>
-        <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">The Yard 7-11 Dash</h1>
+          <Header></Header>
       
+      <div className="container mx-auto p-4">
       <button
-        className="bg-green-600 hover:bg-green-500 transition duration-150 text-white px-5 py-2 rounded-md"
+        className="bg-711-green hover:bg-green-500 transition duration-150 text-white px-5 py-2 rounded-md"
         onClick={() => setIsModalVisible(true)}>
         Add Time
       </button>
