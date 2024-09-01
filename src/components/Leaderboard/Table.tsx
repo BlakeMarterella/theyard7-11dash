@@ -8,7 +8,7 @@ interface TableProps {
   sortOrder: 'asc' | 'desc';
 }
 
-function Table(props: TableProps) {
+export default function Table(props: TableProps) {
   return (
     <table className="min-w-full divide-y divide-gray-200">
       <thead className="bg-gray-50">
@@ -38,6 +38,4 @@ function Table(props: TableProps) {
       </tbody>
     </table>
   );
-};
-
-export default Table;
+}

@@ -4,7 +4,7 @@ import ITimeEntry from "../../types/time-entry.types";
 import { useState, useEffect } from "react";
 
 
-function Leaderboard() {
+export default function Leaderboard() {
     const [entries, setEntries] = useState<ITimeEntry[]>([]);
     const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
 
@@ -46,5 +46,3 @@ function Leaderboard() {
 
   );
 }
-
-export default Leaderboard;
