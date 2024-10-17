@@ -15,3 +15,4 @@ export const app = initializeApp({
 
 export const firestore = getFirestore(app);
 export const TIME_ENTRY_COLLECTION = "time-entries";
+export const RUNNERS_COLLECTION = "runners";

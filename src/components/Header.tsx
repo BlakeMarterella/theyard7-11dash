@@ -22,7 +22,7 @@ export default function Header(props: HeaderProps) {
                     <h1 className="font-bold animate-fade-up animate-ease-out animate-delay-100">
                         The Yard
                     </h1>
-                    <img className="w-12 h-12 animate-fade-down animate-ease-out animate-delay-100" src={"assets/images/7-eleven-logo.png"} alt="7-Eleven Logo"/>
+                    <img className="w-12 h-12 animate-fade-down animate-ease-out animate-delay-100" src={"/images/7-eleven-logo.png"} alt="7-Eleven Logo"/>
                     <h1 className="font-bold animate-fade-up animate-ease-out animate-delay-100">
                         Dash
                     </h1>
